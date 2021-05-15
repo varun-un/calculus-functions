@@ -21,7 +21,7 @@ const euler1 = (differentialEq, initial, targetX, deltaX = .01) => {
             y += differentialEq(initial.x + i * deltaX) * deltaX
         }
         catch (err) {
-            console.error('The differential equation function is undefined or not in the right format:' + err)
+            console.error('The differential equation function is undefined or not in the right format: ' + err)
         }
     }
 
@@ -50,14 +50,51 @@ const euler2 = (differentialEq, initial, targetX, deltaX = .01) => {
             y += differentialEq(initial.x + i * deltaX, y) * deltaX
         }
         catch (err) {
-            console.error('The differential equation function is undefined or not in the right format:' + err)
+            console.error('The differential equation function is undefined or not in the right format: ' + err)
         }
     }
 
     return y
 }
 
+/**
+ * Uses Newton's method to approximate a function's zero. The function and its dervative must be defined for all values of x, and the 
+ * derivative should not equal 0 for any x-value near the initial approximation
+ * @param {function} equation The function for which to perform the approximation for its zero. The function should take in the x-value and 
+ * return its corresponding y-value
+ * @param {function} derivative The derivative of this function, only dependent on x
+ * @param {number} initialX The initial estimate of the zero from which to perform the approximation
+ * @param {number} epsilon The precision with which the zero should be estimated (.0001 by default)
+ * @returns {number} The approximate x-value of the function's zero
+ */
+const newtonsMethod = (equation, derivative, initialX, epsilon = .0001) => {
+
+    var diff = epsilon + 1
+    var x = initialX
+    var xNew
+
+    while (diff > epsilon) {
+
+        if (derivative(x) == 0) {
+            console.error("Newton's method fails, as the function has a horizontal tangent at x = " + x)
+            return null
+        }
+
+        try {
+            xNew = x - (equation(x)) / (derivative(x))
+        }
+        catch (err) {
+            console.error("The function or its derivative is undefined or not in the right format: " + err)
+            return null
+        }
+        
+        diff = Math.abs(x - xNew)
+        x = xNew
+    }
+    return x
+}
 
 // Exports
 exports.euler1 = euler1
 exports.euler2 = euler2
+exports.newtonsMethod = newtonsMethod
