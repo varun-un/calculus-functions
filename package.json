@@ -1,0 +1,12 @@
+{
+  "name": "calculus-functions",
+  "version": "1.0.0",
+  "description": "A Javascript library of functions for simple calculus operations",
+  "main": "calculus-functions.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["calculus", "functions", "euler", "approximation"],
+  "author": "Varun Unnithan",
+  "license": "MIT"
+}
